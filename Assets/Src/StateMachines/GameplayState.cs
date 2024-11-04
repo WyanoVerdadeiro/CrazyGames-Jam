@@ -9,6 +9,7 @@ using Game.Presenters;
 using Game.Messages;
 using Game.Commands;
 using Game.Logic;
+using Game.Controllers;
 
 namespace Game.StateMachines
 {
@@ -25,6 +26,8 @@ namespace Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+
+		private GameControllerLocator _gameControllerLocator;
 
 		public GameplayState(IInstaller installer, Action<IStatechartEvent> statechartTrigger)
 		{
@@ -50,6 +53,7 @@ namespace Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 			
 			gameplayLoading.WaitingFor(LoadGameplayAssets).Target(gameplay);
+			gameplayLoading.OnExit(GameReady);
 
 			gameStateCheck.OnEnter(GameInit);
 			gameStateCheck.Transition().Condition(IsGameOver).Target(gameOver);
@@ -59,6 +63,7 @@ namespace Game.StateMachines
 			gameplay.Event(GAME_OVER_EVENT).Target(gameOver);
 			gameplay.OnExit(CloseGameplayUi);
 
+			gameOver.OnEnter(GameOver);
 			gameOver.OnEnter(OpenGameOverUi);
 			gameOver.Event(RESTART_CLICKED_EVENT).OnTransition(RestartGame).Target(gameStateCheck);
 			gameOver.OnExit(CloseGameOverUi);
@@ -68,12 +73,16 @@ namespace Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			_gameControllerLocator = new GameControllerLocator(_services);
+
 			_services.MessageBrokerService.Subscribe<OnGameOverMessage>(OnGameOverMessage);
 			_services.MessageBrokerService.Subscribe<OnGameRestartClickedMessage>(OnGameRestartClickedMessage);
 		}
 
 		private void UnsubscribeEvents()
 		{
+			_gameControllerLocator = null;
+
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
@@ -122,12 +131,22 @@ namespace Game.StateMachines
 			_uiService.CloseUi<GameOverScreenPresenter>();
 		}
 
+		private void GameReady()
+		{
+			_gameControllerLocator.Enable();
+		}
+
+		private void GameOver()
+		{
+			_gameControllerLocator.Disable();
+		}
+
 		private async Task LoadGameplayAssets()
 		{
 			await _uiService.LoadGameUiSet(UiSetId.GameplayUi, 0.8f);
 			
 			GC.Collect();
-			Resources.UnloadUnusedAssets();
+			await Resources.UnloadUnusedAssets();
 		}
 	}
 }

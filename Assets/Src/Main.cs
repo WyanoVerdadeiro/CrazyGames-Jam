@@ -90,7 +90,7 @@ namespace Game
 			EnhancedTouchSupport.Enable();
 			InitAtt();
 
-			await Task.WhenAll(VersionServices.LoadVersionDataAsync(), UnityServices.InitializeAsync());
+			await Task.WhenAll(VersionServices.LoadVersionDataAsync());//, UnityServices.InitializeAsync());
 
 			InitAnalytics();
 			_stateMachine.Run();
@@ -164,7 +164,7 @@ namespace Game
 		private void InitAnalytics()
 		{
 			// TODO: request data collection permition (use ask age screen for example)
-			Unity.Services.Analytics.AnalyticsService.Instance.StartDataCollection();
+			//Unity.Services.Analytics.AnalyticsService.Instance.StartDataCollection();
 			_services.AnalyticsService.SessionCalls.PlayerLogin(SystemInfo.deviceUniqueIdentifier);
 		}
 

@@ -1,19 +1,27 @@
 ﻿using GameLovers.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Game.MonoComponent
 {
 	public class PieceSpawnerMonoComponent : MonoBehaviour
 	{
-		private IObjectPool<GameObject> _objectPool;
+		[SerializeField] private PieceMonoComponent _piecePrefab;
+
+		private IObjectPool<PieceMonoComponent> _objectPool;
+		private float _nextTick;
 
 		private void Awake()
 		{
+			_objectPool = new GameObjectPool<PieceMonoComponent>(10, _piecePrefab);
+		}
+
+		private void Update()
+		{
+			if (Time.time < _nextTick) return;
+
+			_nextTick = Time.time + Freya.Random.Value;
+
+			_objectPool.Spawn();
 		}
 	}
 }
