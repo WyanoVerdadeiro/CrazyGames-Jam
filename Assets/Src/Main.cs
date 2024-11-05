@@ -13,6 +13,7 @@ using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.InputSystem.UI;
 using System.Collections;
 using Game.Messages;
+using Game.Controllers;
 
 // ReSharper disable once CheckNamespace
 
@@ -28,7 +29,7 @@ namespace Game
 		
 		private GameStateMachine _stateMachine;
 		private GameServices _services;
-		private IGameLogic _gameLogic;
+		private IGameLogicLocator _gameLogic;
 		private IDataService _dataService;
 		private Coroutine _pauseCoroutine;
 		private bool _onApplicationPauseFlag;
@@ -50,16 +51,20 @@ namespace Game
 			installer.Bind<ConfigsProvider, IConfigsAdder, IConfigsProvider>(new ConfigsProvider());
 			installer.Bind<DataService, IDataService, IDataProvider>(new DataService());
 
-			var gameLogic = new GameLogic(installer);
+			var gameLogic = new GameLogicLocator(installer);
+			var commandService = new CommandService<IGameLogicLocator>(gameLogic, installer.Resolve<IMessageBrokerService>());
 
 			installer.Bind<IGameLogicInit>(gameLogic);
-			installer.Bind<IGameDataProvider>(gameLogic);
-			installer.Bind<ICommandService<IGameLogic>>(new CommandService<IGameLogic>(gameLogic, installer.Resolve<IMessageBrokerService>()));
+			installer.Bind<IGameDataProviderLocator>(gameLogic);
+			installer.Bind<ICommandService<IGameLogicLocator>>(commandService);
 
 			var gameServices = new GameServices(installer);
+			var gameControllers = new GameControllerLocator(gameServices);
 
 			installer.Bind<IGameServices>(gameServices);
-			MainInstaller.Bind<IGameDataProvider>(gameLogic);
+			installer.Bind<GameControllerLocator, IGameControllerLocator, IGameControllerMasterLocator>(gameControllers);
+			MainInstaller.Bind<IGameControllerLocator>(gameControllers);
+			MainInstaller.Bind<IGameDataProviderLocator>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);
 
 			_dataService = installer.Resolve<IDataService>();

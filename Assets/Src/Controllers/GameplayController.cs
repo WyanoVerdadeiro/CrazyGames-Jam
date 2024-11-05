@@ -16,8 +16,7 @@ namespace Game.Controllers
 
 	public class GameplayController : IGameplayController, IGameController
 	{
-		private readonly IObservableField<int> _ammo = new ObservableField<int>(50);
-
+		private IObservableField<int> _ammo;
 		private IGameServices _services;
 
 		public IObservableFieldReader<int> Ammo => _ammo;
@@ -29,6 +28,8 @@ namespace Game.Controllers
 
 		public void Enable()
 		{
+			_ammo = new ObservableField<int>(50);
+
 			_services.MessageBrokerService.Subscribe<OnPieceHitMessage>(OnPieceHitMessage);
 			_services.MessageBrokerService.Subscribe<OnShootMessage>(OnShootMessage);
 		}
@@ -37,6 +38,8 @@ namespace Game.Controllers
 		{
 			_services.MessageBrokerService.Unsubscribe<OnPieceHitMessage>(OnPieceHitMessage);
 			_services.MessageBrokerService.Unsubscribe<OnShootMessage>(OnShootMessage);
+
+			_ammo = null;
 		}
 
 		private void OnPieceHitMessage(OnPieceHitMessage message)

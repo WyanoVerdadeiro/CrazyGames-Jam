@@ -27,12 +27,12 @@ namespace Game.Presenters
 		[SerializeField] private TextMeshProUGUI _ammotText;
 		[SerializeField] private Button _gameOverButton;
 
-		private IGameDataProvider _dataProvider;
+		private IGameDataProviderLocator _dataProvider;
 		private IGameServices _services;
 
 		private void Awake()
 		{
-			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_dataProvider = MainInstaller.Resolve<IGameDataProviderLocator>();
 			_services = MainInstaller.Resolve<IGameServices>();
 
 			_timer.Init(_services);

@@ -24,16 +24,16 @@ namespace Game.StateMachines
 
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
-		private readonly IGameDataProvider _gameDataProvider;
+		private readonly IGameDataProviderLocator _gameDataProvider;
+		private readonly IGameControllerMasterLocator _gameController;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-
-		private GameControllerLocator _gameControllerLocator;
 
 		public GameplayState(IInstaller installer, Action<IStatechartEvent> statechartTrigger)
 		{
-			_gameDataProvider = installer.Resolve<IGameDataProvider>();
-			_services = installer.Resolve<IGameServices>();
 			_uiService = installer.Resolve<IGameUiServiceInit>();
+			_services = installer.Resolve<IGameServices>();
+			_gameDataProvider = installer.Resolve<IGameDataProviderLocator>();
+			_gameController = installer.Resolve<IGameControllerMasterLocator>();
 			_statechartTrigger = statechartTrigger;
 		}
 
@@ -52,8 +52,7 @@ namespace Game.StateMachines
 			initial.Transition().Target(gameplayLoading);
 			initial.OnExit(SubscribeEvents);
 			
-			gameplayLoading.WaitingFor(LoadGameplayAssets).Target(gameplay);
-			gameplayLoading.OnExit(GameReady);
+			gameplayLoading.WaitingFor(LoadGameplayAssets).Target(gameStateCheck);
 
 			gameStateCheck.OnEnter(GameInit);
 			gameStateCheck.Transition().Condition(IsGameOver).Target(gameOver);
@@ -73,16 +72,12 @@ namespace Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_gameControllerLocator = new GameControllerLocator(_services);
-
 			_services.MessageBrokerService.Subscribe<OnGameOverMessage>(OnGameOverMessage);
 			_services.MessageBrokerService.Subscribe<OnGameRestartClickedMessage>(OnGameRestartClickedMessage);
 		}
 
 		private void UnsubscribeEvents()
 		{
-			_gameControllerLocator = null;
-
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
@@ -98,6 +93,7 @@ namespace Game.StateMachines
 
 		private void GameInit()
 		{
+			_gameController.Enable();
 			_services.MessageBrokerService.Publish(new OnGameInitMessage());
 		}
 
@@ -131,14 +127,9 @@ namespace Game.StateMachines
 			_uiService.CloseUi<GameOverScreenPresenter>();
 		}
 
-		private void GameReady()
-		{
-			_gameControllerLocator.Enable();
-		}
-
 		private void GameOver()
 		{
-			_gameControllerLocator.Disable();
+			_gameController.Disable();
 		}
 
 		private async Task LoadGameplayAssets()

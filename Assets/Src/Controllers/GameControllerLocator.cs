@@ -7,13 +7,17 @@ namespace Game.Controllers
 	public interface IGameControllerLocator
 	{
 		public IGameplayController GameplayController { get; }
+		bool IsEnabled { get; }
 	}
 
-	public class GameControllerLocator : IGameControllerLocator, IGameController
+	public interface IGameControllerMasterLocator : IGameControllerLocator, IGameController	{ }
+
+	public class GameControllerLocator : IGameControllerMasterLocator
 	{
 		private readonly List<IGameController> _controllers = new List<IGameController>();
 
 		public IGameplayController GameplayController { get; }
+		public bool IsEnabled { get; private set; }
 
 		public GameControllerLocator(IGameServices services)
 		{
@@ -26,18 +30,16 @@ namespace Game.Controllers
 
 		public void Enable()
 		{
-			MainInstaller.Bind<IGameControllerLocator>(this);
-
 			foreach (var controller in _controllers)
 			{
 				controller.Enable();
 			}
+			IsEnabled = true;
 		}
 
 		public void Disable()
 		{
-			MainInstaller.Clean<IGameControllerLocator>();
-
+			IsEnabled = false;
 			foreach (var controller in _controllers)
 			{
 				controller.Disable();
