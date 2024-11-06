@@ -10,6 +10,8 @@ using Game.Messages;
 using Game.Commands;
 using Game.Logic;
 using Game.Controllers;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 namespace Game.StateMachines
 {
@@ -21,25 +23,23 @@ namespace Game.StateMachines
 		public static readonly IStatechartEvent GAME_OVER_EVENT = new StatechartEvent("Game Over Event");
 
 		private static readonly IStatechartEvent RESTART_CLICKED_EVENT = new StatechartEvent("Restart Button Clicked Event");
+		private static readonly IStatechartEvent MENU_CLICKED_EVENT = new StatechartEvent("Menu Clicked Event");
 
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
 		private readonly IGameDataProviderLocator _gameDataProvider;
-		private readonly IGameControllerMasterLocator _gameController;
+		private readonly IGameController _gameController;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		public GameplayState(IInstaller installer, Action<IStatechartEvent> statechartTrigger)
 		{
-			_uiService = installer.Resolve<IGameUiServiceInit>();
+			_uiService = installer.Resolve<IGameUiService>();
 			_services = installer.Resolve<IGameServices>();
 			_gameDataProvider = installer.Resolve<IGameDataProviderLocator>();
-			_gameController = installer.Resolve<IGameControllerMasterLocator>();
+			_gameController = installer.Resolve<IGameController>();
 			_statechartTrigger = statechartTrigger;
 		}
 
-		/// <summary>
-		/// Setups the Adventure gameplay state
-		/// </summary>
 		public void Setup(IStateFactory stateFactory)
 		{
 			var initial = stateFactory.Initial("Initial");
@@ -65,8 +65,10 @@ namespace Game.StateMachines
 			gameOver.OnEnter(GameOver);
 			gameOver.OnEnter(OpenGameOverUi);
 			gameOver.Event(RESTART_CLICKED_EVENT).OnTransition(RestartGame).Target(gameStateCheck);
+			gameOver.Event(MENU_CLICKED_EVENT).Target(final);
 			gameOver.OnExit(CloseGameOverUi);
 
+			final.OnEnter(UnloadAssets);
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -74,6 +76,7 @@ namespace Game.StateMachines
 		{
 			_services.MessageBrokerService.Subscribe<OnGameOverMessage>(OnGameOverMessage);
 			_services.MessageBrokerService.Subscribe<OnGameRestartClickedMessage>(OnGameRestartClickedMessage);
+			_services.MessageBrokerService.Subscribe<OnMenuClickedMessage>(OnMenutClickedMessage);
 		}
 
 		private void UnsubscribeEvents()
@@ -89,6 +92,11 @@ namespace Game.StateMachines
 		private void OnGameRestartClickedMessage(OnGameRestartClickedMessage message)
 		{
 			_statechartTrigger(RESTART_CLICKED_EVENT);
+		}
+
+		private void OnMenutClickedMessage(OnMenuClickedMessage message)
+		{
+			_statechartTrigger(MENU_CLICKED_EVENT);
 		}
 
 		private void GameInit()
@@ -134,10 +142,21 @@ namespace Game.StateMachines
 
 		private async Task LoadGameplayAssets()
 		{
-			await _uiService.LoadGameUiSet(UiSetId.GameplayUi, 0.8f);
-			
+			var tasks = new List<Task>
+			{
+				_uiService.LoadGameUiSet(UiSetId.GameplayUi, 0.8f)
+			};
+
+			await SceneManager.LoadSceneAsync("Game", LoadSceneMode.Additive);
+			await Task.WhenAll(tasks);
+
 			GC.Collect();
 			await Resources.UnloadUnusedAssets();
+		}
+
+		private void UnloadAssets()
+		{
+			SceneManager.UnloadSceneAsync("Game");
 		}
 	}
 }

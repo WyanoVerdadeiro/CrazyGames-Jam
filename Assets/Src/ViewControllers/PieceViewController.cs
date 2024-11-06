@@ -4,16 +4,16 @@ using GameLovers.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Game.MonoComponent
+namespace Game.ViewControllers
 {
 	[RequireComponent(typeof(Rigidbody))]
-	public class PieceMonoComponent : MonoBehaviour, IPointerUpHandler,  IPointerDownHandler,
-		IPoolEntityObject<PieceMonoComponent>, IPoolEntitySpawn
+	public class PieceViewController : MonoBehaviour, IPointerUpHandler,  IPointerDownHandler,
+		IPoolEntityObject<PieceViewController>, IPoolEntitySpawn
 	{
 		[SerializeField] private Rigidbody _rigidbody;
 
 		private IGameServices _gameServices;
-		private IObjectPool<PieceMonoComponent> _objectPool;
+		private IObjectPool<PieceViewController> _objectPool;
 
 		private void OnValidate()
 		{
@@ -27,13 +27,13 @@ namespace Game.MonoComponent
 
 		private void Update()
 		{
-			if (transform.localPosition.y < -2f)
+			if (transform.position.y < -12f)
 			{
 				Despawn();
 			}
 		}
 
-		public void Init(IObjectPool<PieceMonoComponent> pool)
+		public void Init(IObjectPool<PieceViewController> pool)
 		{
 			_objectPool = pool;
 		}
@@ -63,7 +63,7 @@ namespace Game.MonoComponent
 				Freya.Random.Range(-0.01f, 0.01f) * Mathf.Sin(angleRng));
 
 			transform.rotation = Freya.Random.Rotation;
-			transform.localPosition = Vector3.right * Freya.Random.Range(-5f, 5f);
+			transform.position = new Vector3(Freya.Random.Range(-5f, 5f), -11f, 5f);
 
 			_rigidbody.AddForce(direction * 30f, ForceMode.Impulse);
 		}

@@ -1,11 +1,14 @@
 ﻿using Game.Messages;
 using Game.Services;
+using Game.ViewControllers;
 using GameLovers;
+using GameLovers.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Game.Controllers
 {
@@ -16,8 +19,10 @@ namespace Game.Controllers
 
 	public class GameplayController : IGameplayController, IGameController
 	{
-		private IObservableField<int> _ammo;
 		private IGameServices _services;
+		private IObservableField<int> _ammo;
+		private IObjectPool<PieceViewController> _objectPool;
+		private float _nextTick;
 
 		public IObservableFieldReader<int> Ammo => _ammo;
 

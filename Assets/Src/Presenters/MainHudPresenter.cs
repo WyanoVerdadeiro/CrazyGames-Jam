@@ -29,11 +29,13 @@ namespace Game.Presenters
 
 		private IGameDataProviderLocator _dataProvider;
 		private IGameServices _services;
+		private IGameControllerLocator _gameController;
 
 		private void Awake()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProviderLocator>();
 			_services = MainInstaller.Resolve<IGameServices>();
+			_gameController = MainInstaller.Resolve<IGameControllerLocator>();
 
 			_timer.Init(_services);
 			_gameOverButton.onClick.AddListener(GameOverClicked);
@@ -51,7 +53,7 @@ namespace Game.Presenters
 		{
 			_dataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.SoftCurrency, OnSoftCurrencyUpdated);
 			_dataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.HardCurrency, OnHardCurrencyUpdated);
-			MainInstaller.Resolve<IGameControllerLocator>().GameplayController.Ammo.InvokeObserve(OnAmmoUpdated);
+			_gameController.GameplayController.Ammo.InvokeObserve(OnAmmoUpdated);
 		}
 
 		private void OnAmmoUpdated(int oldValue, int newValue)
