@@ -16,7 +16,7 @@ namespace Game.Controllers
 	public interface IGameplayController
 	{
 		IObservableFieldReader<int> Ammo { get; }
-		IObservableDictionaryReader<GameId, int> Goals { get; }
+		IObservableListReader<StructPair<GameId, int>> Goals { get; }
 	}
 
 	public class GameplayController : IGameplayController, IGameController
@@ -24,13 +24,13 @@ namespace Game.Controllers
 		private IGameControllerLocator _contollers;
 		private IGameServices _services;
 		private IObservableField<int> _ammo;
-		private IObservableDictionary<GameId, int> _goals;
+		private IObservableList<StructPair<GameId, int>> _goals;
 		private IObjectPool<PieceViewController> _objectPool;
 		private float _nextTick;
 
 		public IObservableFieldReader<int> Ammo => _ammo;
 
-		public IObservableDictionaryReader<GameId, int> Goals => _goals;
+		public IObservableListReader<StructPair<GameId, int>> Goals => _goals;
 
 		public GameplayController(IGameServices services, IGameControllerLocator contollers)
 		{
@@ -44,11 +44,11 @@ namespace Game.Controllers
 			var idx = UnityEngine.Random.Range(0, ids.Count);
 
 			_ammo = new ObservableField<int>(50);
-			_goals = new ObservableDictionary<GameId, int>(new Dictionary<GameId, int>());
+			_goals = new ObservableList<StructPair<GameId, int>>(new List<StructPair<GameId, int>>());
 
-			_goals.Add(ids[idx], UnityEngine.Random.Range(3, 6));
+			_goals.Add(new StructPair<GameId, int>(ids[idx], UnityEngine.Random.Range(3, 10)));
 			ids.RemoveAt(idx);
-			_goals.Add(ids[UnityEngine.Random.Range(0, ids.Count)], UnityEngine.Random.Range(3, 6));
+			_goals.Add(new StructPair<GameId, int>(ids[UnityEngine.Random.Range(0, ids.Count)], UnityEngine.Random.Range(3, 10)));
 
 			_services.MessageBrokerService.Subscribe<OnPieceHitMessage>(OnPieceHitMessage);
 			_services.MessageBrokerService.Subscribe<OnShootMessage>(OnShootMessage);
@@ -64,6 +64,30 @@ namespace Game.Controllers
 
 		private void OnPieceHitMessage(OnPieceHitMessage message)
 		{
+			var levelComplete = true;
+
+			for(var i  = 0; i < _goals.Count; i++)
+			{
+				if(_goals[i].Key == message.Piece)
+				{
+					var pair = _goals[i];
+
+					pair.Value--;
+					_goals[i] = pair;
+				}
+
+				if(_goals[i].Value > 0)
+				{
+					levelComplete = false;
+				}
+			}
+
+			if(levelComplete)
+			{
+				_ammo.Value--;
+				_services.MessageBrokerService.Publish(new OnGameCompleteMessage());
+				return;
+			}
 			OnShootMessage(new OnShootMessage());
 		}
 

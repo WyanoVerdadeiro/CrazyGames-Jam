@@ -21,6 +21,7 @@ namespace Game.StateMachines
 	public class GameplayState
 	{
 		public static readonly IStatechartEvent GAME_OVER_EVENT = new StatechartEvent("Game Over Event");
+		public static readonly IStatechartEvent GAME_COMPLETE_EVENT = new StatechartEvent("Game Complete Event");
 
 		private static readonly IStatechartEvent RESTART_CLICKED_EVENT = new StatechartEvent("Restart Button Clicked Event");
 		private static readonly IStatechartEvent MENU_CLICKED_EVENT = new StatechartEvent("Menu Clicked Event");
@@ -60,6 +61,7 @@ namespace Game.StateMachines
 
 			gameplay.OnEnter(OpenGameplayUi);
 			gameplay.Event(GAME_OVER_EVENT).Target(gameOver);
+			gameplay.Event(GAME_COMPLETE_EVENT).Target(gameOver);
 			gameplay.OnExit(CloseGameplayUi);
 
 			gameOver.OnEnter(GameOver);
@@ -75,6 +77,7 @@ namespace Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<OnGameOverMessage>(OnGameOverMessage);
+			_services.MessageBrokerService.Subscribe<OnGameCompleteMessage>(OnGameCompleteMessage);
 			_services.MessageBrokerService.Subscribe<OnGameRestartClickedMessage>(OnGameRestartClickedMessage);
 			_services.MessageBrokerService.Subscribe<OnMenuClickedMessage>(OnMenutClickedMessage);
 		}
@@ -108,6 +111,11 @@ namespace Game.StateMachines
 		private void RestartGame()
 		{
 			_services.CommandService.ExecuteCommand(new RestartGameCommand());
+		}
+
+		public void OnGameCompleteMessage(OnGameCompleteMessage message)
+		{
+			_statechartTrigger(GAME_COMPLETE_EVENT);
 		}
 
 		private bool IsGameOver()

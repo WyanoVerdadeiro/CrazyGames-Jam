@@ -48,11 +48,12 @@ namespace Game.Controllers
 		private PieceViewController Instantiator(PieceViewController _)
 		{
 			var id = _pieceIds[UnityEngine.Random.Range(0, _pieceIds.Count)];
-			var instance = _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, false).Result;
+			var instance = _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, false).Result.GetComponent<PieceViewController>();
 
-			instance.SetActive(false);
+			instance.Setup(id);
+			instance.gameObject.SetActive(false);
 
-			return instance.GetComponent<PieceViewController>();
+			return instance;
 		}
 
 		public void Disable()

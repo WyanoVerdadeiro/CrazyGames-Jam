@@ -1,4 +1,5 @@
-﻿using Game.Messages;
+﻿using Game.Ids;
+using Game.Messages;
 using Game.Services;
 using GameLovers.Services;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Game.ViewControllers
 	{
 		[SerializeField] private Rigidbody _rigidbody;
 
+		private GameId _gameId;
 		private IGameServices _gameServices;
 		private IObjectPool<PieceViewController> _objectPool;
 
@@ -38,6 +40,11 @@ namespace Game.ViewControllers
 			_objectPool = pool;
 		}
 
+		public void Setup(GameId id)
+		{
+			_gameId = id;
+		}
+
 		public bool Despawn()
 		{
 			return _objectPool.Despawn(this);
@@ -51,7 +58,7 @@ namespace Game.ViewControllers
 		public void OnPointerUp(PointerEventData eventData)
 		{
 			Despawn();
-			_gameServices.MessageBrokerService.Publish(new OnShootMessage());
+			_gameServices.MessageBrokerService.Publish(new OnPieceHitMessage { Piece = _gameId });
 		}
 
 		public void OnSpawn()
