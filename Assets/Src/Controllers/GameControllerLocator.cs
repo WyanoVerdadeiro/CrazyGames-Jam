@@ -20,8 +20,8 @@ namespace Game.Controllers
 
 		public GameControllerLocator(IGameServices services)
 		{
-			var gameplayController = new GameplayController(services);
-			var pieceSpawnerController = new PieceSpawnerController(services);
+			var gameplayController = new GameplayController(services, this);
+			var pieceSpawnerController = new PieceSpawnerController(services, this);
 
 			GameplayController = gameplayController;
 			PieceSpawnerController = pieceSpawnerController;

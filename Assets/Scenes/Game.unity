@@ -288,7 +288,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeApple (5)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7561253843356453449, guid: c93b31a9a90c59a419a55a766198f361, type: 3}
+    - {fileID: 4960320049748702313, guid: c93b31a9a90c59a419a55a766198f361, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -350,7 +352,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cloud
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -1952940538072195599, guid: dfe10a02cdf54af40a191d833c414f2c, type: 3}
+    - {fileID: -5066256836825956189, guid: dfe10a02cdf54af40a191d833c414f2c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -412,7 +416,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeApple (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7561253843356453449, guid: c93b31a9a90c59a419a55a766198f361, type: 3}
+    - {fileID: 4960320049748702313, guid: c93b31a9a90c59a419a55a766198f361, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -721,7 +727,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeApple (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7561253843356453449, guid: c93b31a9a90c59a419a55a766198f361, type: 3}
+    - {fileID: 4960320049748702313, guid: c93b31a9a90c59a419a55a766198f361, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -783,7 +791,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeApple (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7561253843356453449, guid: c93b31a9a90c59a419a55a766198f361, type: 3}
+    - {fileID: 4960320049748702313, guid: c93b31a9a90c59a419a55a766198f361, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -845,7 +855,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeApple (4)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7561253843356453449, guid: c93b31a9a90c59a419a55a766198f361, type: 3}
+    - {fileID: 4960320049748702313, guid: c93b31a9a90c59a419a55a766198f361, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -907,7 +919,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cloud (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -1952940538072195599, guid: dfe10a02cdf54af40a191d833c414f2c, type: 3}
+    - {fileID: -5066256836825956189, guid: dfe10a02cdf54af40a191d833c414f2c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -969,7 +983,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cloud (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -1952940538072195599, guid: dfe10a02cdf54af40a191d833c414f2c, type: 3}
+    - {fileID: -5066256836825956189, guid: dfe10a02cdf54af40a191d833c414f2c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1089,7 +1105,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hills
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5650788064107298590, guid: 204658c66df705d4495afd566ce6ccb0, type: 3}
+    - {fileID: 5594686288229954235, guid: 204658c66df705d4495afd566ce6ccb0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1151,7 +1169,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cloud (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -1952940538072195599, guid: dfe10a02cdf54af40a191d833c414f2c, type: 3}
+    - {fileID: -5066256836825956189, guid: dfe10a02cdf54af40a191d833c414f2c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1400,7 +1420,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeApple (6)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7561253843356453449, guid: c93b31a9a90c59a419a55a766198f361, type: 3}
+    - {fileID: 4960320049748702313, guid: c93b31a9a90c59a419a55a766198f361, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

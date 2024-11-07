@@ -59,13 +59,14 @@ namespace Game.ViewControllers
 			var angleRng = Freya.Random.Angle / 8f;
 			var direction = new Vector3(
 				Freya.Random.Range(-1f, 1f) * Mathf.Sin(angleRng),
-				Mathf.Cos(angleRng),
+				Freya.Random.Range(0.6f, 0.8f),
 				Freya.Random.Range(-0.01f, 0.01f) * Mathf.Sin(angleRng));
 
 			transform.rotation = Freya.Random.Rotation;
 			transform.position = new Vector3(Freya.Random.Range(-5f, 5f), -11f, 5f);
 
 			_rigidbody.AddForce(direction * 30f, ForceMode.Impulse);
+			_rigidbody.AddTorque(Freya.Random.Direction3D * 3f, ForceMode.Impulse);
 		}
 	}
 }
