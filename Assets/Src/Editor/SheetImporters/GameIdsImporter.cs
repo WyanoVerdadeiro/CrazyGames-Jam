@@ -17,7 +17,7 @@ namespace Game.SheetImporters
 		private const string _GROUPS_TAG = "Groups";
 		
 		/// <inheritdoc />
-		public string GoogleSheetUrl => "https://docs.google.com/spreadsheets/d/1095NlqM_3cvZfCTnQtTsCkOAXh0McypKZje47WtBzPY/edit#gid=0";
+		public string GoogleSheetUrl => "https://docs.google.com/spreadsheets/d/1niZetdATgeUv786cV0IHIl0TMK4-JKbEmGiySsAn-vc/edit?gid=0#gid=0";
 		
 		/// <inheritdoc />
 		public void Import(List<Dictionary<string, string>> data)
