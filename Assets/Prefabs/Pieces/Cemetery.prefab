@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2572328793516670120}
   - component: {fileID: 3565509506169640961}
+  - component: {fileID: 9002778617833571070}
   m_Layer: 0
   m_Name: Cemetery
   m_TagString: Untagged
@@ -93,3 +94,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.3210845, y: 2.3258352, z: -0.15748584}
     m_Extent: {x: 2.4264503, y: 3.563877, z: 2.925159}
   m_DirtyAABB: 0
+--- !u!65 &9002778617833571070
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7313689023641652100}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.8529005, y: 7.127754, z: 5.850318}
+  m_Center: {x: 0.3210845, y: 2.3258352, z: -0.15748584}

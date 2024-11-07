@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 293237001387174637}
   - component: {fileID: 6322006647799252918}
+  - component: {fileID: 2748631522863192684}
   m_Layer: 0
   m_Name: Cloud
   m_TagString: Untagged
@@ -89,3 +90,24 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0066987276, y: 0.83929324, z: -0.036028385}
     m_Extent: {x: 2.036952, y: 1.5756786, z: 3.7588503}
   m_DirtyAABB: 0
+--- !u!65 &2748631522863192684
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933856022765254570}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.073904, y: 3.1513572, z: 7.5177007}
+  m_Center: {x: -0.0066987276, y: 0.83929324, z: -0.036028385}

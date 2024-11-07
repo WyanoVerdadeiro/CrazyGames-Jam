@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7608138026605766895}
   - component: {fileID: 5743305875925545328}
+  - component: {fileID: 7218240153030160830}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -95,3 +96,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0.72768414, z: -0.3363093}
     m_Extent: {x: 1.1227546, y: 2.257752, z: 1.8216594}
   m_DirtyAABB: 0
+--- !u!65 &7218240153030160830
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8552478089168977898}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.2455091, y: 4.515504, z: 3.643319}
+  m_Center: {x: 2.47081e-40, y: 0.72768414, z: -0.3363093}

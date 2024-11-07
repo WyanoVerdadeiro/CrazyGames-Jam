@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6349989869958861174}
   - component: {fileID: 4777916824866678398}
+  - component: {fileID: 255987627079112317}
   m_Layer: 0
   m_Name: CannonBall
   m_TagString: Untagged
@@ -89,3 +90,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 1.0511521, y: 1.0573367, z: 1.0491735}
   m_DirtyAABB: 0
+--- !u!135 &255987627079112317
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4425974656871805676}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.0573367
+  m_Center: {x: 0, y: 0, z: 0}

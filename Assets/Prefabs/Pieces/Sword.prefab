@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6312131562535733761}
   - component: {fileID: 5096204154430435616}
+  - component: {fileID: 8397300938233332934}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -92,3 +93,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 1.1452887, z: 0}
     m_Extent: {x: 0.9479118, y: 2.9987895, z: 0.422557}
   m_DirtyAABB: 0
+--- !u!65 &8397300938233332934
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6157387902808637699}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.8958236, y: 5.997579, z: 0.845114}
+  m_Center: {x: 0, y: 1.1452887, z: 0}

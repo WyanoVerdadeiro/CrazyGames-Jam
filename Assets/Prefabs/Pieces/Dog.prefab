@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7144336766292443035}
   - component: {fileID: 61344502978573755}
+  - component: {fileID: 1523600999597214861}
   m_Layer: 0
   m_Name: Dog
   m_TagString: Untagged
@@ -96,3 +97,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0.83686906, z: -0.35584056}
     m_Extent: {x: 1.5982308, y: 2.4338603, z: 2.8568368}
   m_DirtyAABB: 0
+--- !u!65 &1523600999597214861
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2557111787901980037}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.1964617, y: 4.8677206, z: 5.7136736}
+  m_Center: {x: 2.6143e-40, y: 0.83686906, z: -0.35584056}

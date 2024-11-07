@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9039992695253854345}
   - component: {fileID: 865193932288736014}
+  - component: {fileID: 8090583006083327983}
   m_Layer: 0
   m_Name: Mushroom
   m_TagString: Untagged
@@ -92,3 +93,26 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0.25889814, z: 0}
     m_Extent: {x: 1.4059203, y: 1.5118943, z: 1.4059203}
   m_DirtyAABB: 0
+--- !u!136 &8090583006083327983
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2769362486074368379}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.51
+  m_Height: 3.18
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.25889814, z: 0}

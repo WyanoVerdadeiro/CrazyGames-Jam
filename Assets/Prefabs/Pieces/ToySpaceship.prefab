@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 379700992866104655}
   - component: {fileID: 3726781504666663124}
+  - component: {fileID: 8109909118755587884}
   m_Layer: 0
   m_Name: ToySpaceship
   m_TagString: Untagged
@@ -97,3 +98,24 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.009359181, y: 0.25178862, z: -0.27041045}
     m_Extent: {x: 1.3012495, y: 1.8012614, z: 1.1756091}
   m_DirtyAABB: 0
+--- !u!65 &8109909118755587884
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897898004779218613}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.602499, y: 2.86, z: 2.3512182}
+  m_Center: {x: -0.009359181, y: 0.63, z: -0.27041045}

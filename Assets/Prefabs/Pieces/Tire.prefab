@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8820571258998948541}
   - component: {fileID: 7115375299141035450}
+  - component: {fileID: 8137647226673677972}
   m_Layer: 0
   m_Name: Tire
   m_TagString: Untagged
@@ -91,3 +92,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.4696049, y: 1.1047533, z: 1.1047533}
   m_DirtyAABB: 0
+--- !u!65 &8137647226673677972
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8292879133184198209}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.9392098, y: 2.2095065, z: 2.2095065}
+  m_Center: {x: 0, y: 0, z: 0}

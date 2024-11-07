@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1799231629508337727}
   - component: {fileID: 697889045077276704}
+  - component: {fileID: 2980063369357589297}
   m_Layer: 0
   m_Name: CottonCandy
   m_TagString: Untagged
@@ -95,3 +96,24 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.12578213, y: -0.13385749, z: 0.0077907443}
     m_Extent: {x: 1.0940197, y: 1.6336527, z: 1.1042337}
   m_DirtyAABB: 0
+--- !u!65 &2980063369357589297
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3024211418807721704}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.1880393, y: 3.2673054, z: 2.2084675}
+  m_Center: {x: -0.12578213, y: -0.13385749, z: 0.0077907443}

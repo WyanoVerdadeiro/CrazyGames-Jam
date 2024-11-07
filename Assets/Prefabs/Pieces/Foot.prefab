@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 818168664099284628}
   - component: {fileID: 1652905014343607327}
+  - component: {fileID: 7868077601165295372}
   m_Layer: 0
   m_Name: Foot
   m_TagString: Untagged
@@ -93,3 +94,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.032828897, y: 0.49013698, z: -0.011442184}
     m_Extent: {x: 0.8199574, y: 1.018694, z: 1.6221497}
   m_DirtyAABB: 0
+--- !u!65 &7868077601165295372
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2964022745749843613}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.6399148, y: 2.037388, z: 3.2442994}
+  m_Center: {x: 0.032828897, y: 0.49013698, z: -0.011442184}
