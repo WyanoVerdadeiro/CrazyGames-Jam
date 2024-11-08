@@ -4,7 +4,7 @@
 #
 **/[Ll]ibrary/
 **/[Tt]emp/
-**/[Bb]uild/
+#**/[Bb]uild/
 **/[Bb]uilds/
 **/[Ll]ogs/
 **/[Mm]emoryCaptures/
@@ -71,8 +71,8 @@ sysinfo.txt
 **/.utmp/
 #**/BuildReports/
 #**/BuildReports.meta
-#**/Build/
-#**/Build.meta
+**/Assets/Build/
+**/Assets/Build.meta
 **/Editor Default Resources/
 **/Editor Default Resources.meta
 build-output.properties
@@ -109,8 +109,8 @@ GvhProjectSettings.xml
 # Credential files:
 **/GoogleService-Info*.plist*
 **/google-services*.json**
-**/StreamingAssets/
-**/StreamingAssets.meta
+/obj/
+/obj.meta
 
 # Addressable Assets:
 **/AddressableAssetsData/iOS/
