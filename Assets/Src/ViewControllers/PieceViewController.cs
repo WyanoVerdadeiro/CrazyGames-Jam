@@ -1,4 +1,5 @@
-﻿using Game.Messages;
+﻿using Game.Ids;
+using Game.Messages;
 using Game.Services;
 using GameLovers.Services;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Game.ViewControllers
 	{
 		[SerializeField] private Rigidbody _rigidbody;
 
+		private GameId _gameId;
 		private IGameServices _gameServices;
 		private IObjectPool<PieceViewController> _objectPool;
 
@@ -38,6 +40,11 @@ namespace Game.ViewControllers
 			_objectPool = pool;
 		}
 
+		public void Setup(GameId id)
+		{
+			_gameId = id;
+		}
+
 		public bool Despawn()
 		{
 			return _objectPool.Despawn(this);
@@ -51,7 +58,7 @@ namespace Game.ViewControllers
 		public void OnPointerUp(PointerEventData eventData)
 		{
 			Despawn();
-			_gameServices.MessageBrokerService.Publish(new OnShootMessage());
+			_gameServices.MessageBrokerService.Publish(new OnPieceHitMessage { Piece = _gameId });
 		}
 
 		public void OnSpawn()
@@ -59,13 +66,14 @@ namespace Game.ViewControllers
 			var angleRng = Freya.Random.Angle / 8f;
 			var direction = new Vector3(
 				Freya.Random.Range(-1f, 1f) * Mathf.Sin(angleRng),
-				Mathf.Cos(angleRng),
+				Freya.Random.Range(0.6f, 0.8f),
 				Freya.Random.Range(-0.01f, 0.01f) * Mathf.Sin(angleRng));
 
 			transform.rotation = Freya.Random.Rotation;
 			transform.position = new Vector3(Freya.Random.Range(-5f, 5f), -11f, 5f);
 
 			_rigidbody.AddForce(direction * 30f, ForceMode.Impulse);
+			_rigidbody.AddTorque(Freya.Random.Direction3D * 3f, ForceMode.Impulse);
 		}
 	}
 }

@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 7176801399528113164}
   - component: {fileID: 748641463348567389}
   m_Layer: 5
-  m_Name: HardCurrency
+  m_Name: Goal 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -851,14 +851,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 0
-    m_Right: 10
-    m_Top: 10
+    m_Right: 20
+    m_Top: 20
     m_Bottom: 0
   m_ChildAlignment: 2
   m_StartCorner: 1
   m_StartAxis: 0
-  m_CellSize: {x: 140, y: 60}
-  m_Spacing: {x: 10, y: 0}
+  m_CellSize: {x: 200, y: 250}
+  m_Spacing: {x: 20, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
 --- !u!114 &3094679804233417122
@@ -1029,10 +1029,10 @@ RectTransform:
   m_Father: {fileID: 319996895751910186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0.000061035156, y: 10}
+  m_SizeDelta: {x: 0, y: 50}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &4439351536906074274
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1258,9 +1258,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timer: {fileID: 7376234558003491297}
-  _version: {fileID: 8640848767783946953}
-  _softCurrencyText: {fileID: 4740854481510900994}
-  _hardCurrencyText: {fileID: 6358101415435684319}
+  _goal1Text: {fileID: 6358101415435684319}
+  _goal2Text: {fileID: 4740854481510900994}
   _ammotText: {fileID: 5619630855229975893}
   _gameOverButton: {fileID: 4130411051365883866}
 --- !u!1 &5862938210625557246
@@ -1521,7 +1520,7 @@ GameObject:
   - component: {fileID: 2650851385097160459}
   - component: {fileID: 4267204978079776895}
   m_Layer: 5
-  m_Name: SoftCurrency
+  m_Name: Goal 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2038,10 +2037,10 @@ RectTransform:
   m_Father: {fileID: 5057211921069769458}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 10}
+  m_SizeDelta: {x: 0, y: 50}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1543650639770374770
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -1,7 +1,11 @@
-﻿using Game.Services;
+﻿using Game.Configs;
+using Game.Ids;
+using Game.Services;
 using Game.ViewControllers;
 using GameLovers.Services;
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Controllers
@@ -10,31 +14,57 @@ namespace Game.Controllers
 
 	public class PieceSpawnerController : IPieceSpawnerController, IGameController
 	{
+		private IGameControllerLocator _contollers;
 		private IGameServices _services;
-		private PieceViewController _piecePrefab;
 		private IObjectPool<PieceViewController> _objectPool;
 		private float _nextTick;
+		private List<GameId> _pieceIds = new List<GameId>();
 
-		public PieceSpawnerController(IGameServices services)
+		public PieceSpawnerController(IGameServices services, IGameControllerLocator contollers)
 		{
+			_contollers = contollers;
 			_services = services;
 		}
 
 		public void Enable()
 		{
-			if(_piecePrefab == null)
+			var ids = GameIdGroup.Piece.GetIds();
+
+			foreach (var goal in _contollers.GameplayController.Goals)
 			{
-				// TODO: Change this to load from an addressaable instead
-				_piecePrefab = GameObject.FindFirstObjectByType<PieceViewController>(FindObjectsInactive.Include);
-				_objectPool = new GameObjectPool<PieceViewController>(10, _piecePrefab);
+				_pieceIds.Add(goal.Key);
+				_pieceIds.Add(goal.Key);
+			}
+			
+			for (var i = 0; i < 10; i++)
+			{
+				_pieceIds.Add(ids[UnityEngine.Random.Range(0, ids.Count)]);
 			}
 
+			_objectPool = new GameObjectPool<PieceViewController>(15, null, Instantiator);
 			_services.TickService.SubscribeOnUpdate(OnUpdate);
+		}
+
+		private PieceViewController Instantiator(PieceViewController _)
+		{
+			var id = _pieceIds[UnityEngine.Random.Range(0, _pieceIds.Count)];
+			var instance = _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, false).Result.GetComponent<PieceViewController>();
+
+			instance.Setup(id);
+			instance.gameObject.SetActive(false);
+
+			return instance;
 		}
 
 		public void Disable()
 		{
-			_objectPool.DespawnAll();
+			var objects = _objectPool.Clear();
+
+			foreach (var obj in objects)
+			{
+				_services.AssetResolverService.UnloadAsset(obj.gameObject);
+			}
+
 			_services.TickService.UnsubscribeOnUpdate(OnUpdate);
 		}
 

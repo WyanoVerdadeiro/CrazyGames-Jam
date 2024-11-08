@@ -9,25 +9,43 @@ namespace Game.Ids
 		Random,
 		SoftCurrency,
 		HardCurrency,
-		Weapon,
-		Shield,
-		Boots,
-		Trash,
-		HealthPotion,
-		ManaPotion,
-		TownHall,
-		Farm,
-		House
+		Baby,
+		ToySpaceship,
+		ToyBrick,
+		Toilet,
+		Poop,
+		TreeApple,
+		Hills,
+		Cloud,
+		Dog,
+		Cat,
+		Moon,
+		Mushroom,
+		Cemetery,
+		Foot,
+		UFO,
+		Banana,
+		Orange,
+		Egg,
+		Carrot,
+		CottonCandy,
+		Sword,
+		Axe,
+		Hammer,
+		Cannon,
+		CannonBall,
+		House,
+		Building,
+		Tire,
+		Flag,
+		Deodorant
 	}
 
 	public enum GameIdGroup
 	{
 		GameDesign,
 		Currency,
-		Item,
-		Equipment,
-		Potion,
-		Building
+		Piece
 	}
 
 	public static class GameIdLookup
@@ -99,62 +117,183 @@ namespace Game.Ids
 					}.AsReadOnly()
 				},
 				{
-					GameId.Weapon, new List<GameIdGroup>
+					GameId.Baby, new List<GameIdGroup>
 					{
-						GameIdGroup.Item,
-						GameIdGroup.Equipment
+						GameIdGroup.Piece
 					}.AsReadOnly()
 				},
 				{
-					GameId.Shield, new List<GameIdGroup>
+					GameId.ToySpaceship, new List<GameIdGroup>
 					{
-						GameIdGroup.Item,
-						GameIdGroup.Equipment
+						GameIdGroup.Piece
 					}.AsReadOnly()
 				},
 				{
-					GameId.Boots, new List<GameIdGroup>
+					GameId.ToyBrick, new List<GameIdGroup>
 					{
-						GameIdGroup.Item,
-						GameIdGroup.Equipment
+						GameIdGroup.Piece
 					}.AsReadOnly()
 				},
 				{
-					GameId.Trash, new List<GameIdGroup>
+					GameId.Toilet, new List<GameIdGroup>
 					{
-						GameIdGroup.Item
+						GameIdGroup.Piece
 					}.AsReadOnly()
 				},
 				{
-					GameId.HealthPotion, new List<GameIdGroup>
+					GameId.Poop, new List<GameIdGroup>
 					{
-						GameIdGroup.Item,
-						GameIdGroup.Potion
+						GameIdGroup.Piece
 					}.AsReadOnly()
 				},
 				{
-					GameId.ManaPotion, new List<GameIdGroup>
+					GameId.TreeApple, new List<GameIdGroup>
 					{
-						GameIdGroup.Item,
-						GameIdGroup.Potion
+						GameIdGroup.Piece
 					}.AsReadOnly()
 				},
 				{
-					GameId.TownHall, new List<GameIdGroup>
+					GameId.Hills, new List<GameIdGroup>
 					{
-						GameIdGroup.Building
+						GameIdGroup.Piece
 					}.AsReadOnly()
 				},
 				{
-					GameId.Farm, new List<GameIdGroup>
+					GameId.Cloud, new List<GameIdGroup>
 					{
-						GameIdGroup.Building
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Dog, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Cat, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Moon, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Mushroom, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Cemetery, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Foot, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.UFO, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Banana, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Orange, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Egg, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Carrot, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.CottonCandy, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Sword, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Axe, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Hammer, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Cannon, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.CannonBall, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
 					}.AsReadOnly()
 				},
 				{
 					GameId.House, new List<GameIdGroup>
 					{
-						GameIdGroup.Building
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Building, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Tire, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Flag, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
+					}.AsReadOnly()
+				},
+				{
+					GameId.Deodorant, new List<GameIdGroup>
+					{
+						GameIdGroup.Piece
 					}.AsReadOnly()
 				},
 			};
@@ -176,37 +315,38 @@ namespace Game.Ids
 					}.AsReadOnly()
 				},
 				{
-					GameIdGroup.Item, new List<GameId>
+					GameIdGroup.Piece, new List<GameId>
 					{
-						GameId.Weapon,
-						GameId.Shield,
-						GameId.Boots,
-						GameId.Trash,
-						GameId.HealthPotion,
-						GameId.ManaPotion
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Equipment, new List<GameId>
-					{
-						GameId.Weapon,
-						GameId.Shield,
-						GameId.Boots
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Potion, new List<GameId>
-					{
-						GameId.HealthPotion,
-						GameId.ManaPotion
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.Building, new List<GameId>
-					{
-						GameId.TownHall,
-						GameId.Farm,
-						GameId.House
+						GameId.Baby,
+						GameId.ToySpaceship,
+						GameId.ToyBrick,
+						GameId.Toilet,
+						GameId.Poop,
+						GameId.TreeApple,
+						GameId.Hills,
+						GameId.Cloud,
+						GameId.Dog,
+						GameId.Cat,
+						GameId.Moon,
+						GameId.Mushroom,
+						GameId.Cemetery,
+						GameId.Foot,
+						GameId.UFO,
+						GameId.Banana,
+						GameId.Orange,
+						GameId.Egg,
+						GameId.Carrot,
+						GameId.CottonCandy,
+						GameId.Sword,
+						GameId.Axe,
+						GameId.Hammer,
+						GameId.Cannon,
+						GameId.CannonBall,
+						GameId.House,
+						GameId.Building,
+						GameId.Tire,
+						GameId.Flag,
+						GameId.Deodorant
 					}.AsReadOnly()
 				},
 			};

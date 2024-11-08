@@ -7,6 +7,6 @@ namespace Game.SheetImporters
 	public class DataConfigsImporter : GoogleSheetConfigsImporter<DataConfig, DataConfigs>
 	{
 		/// <inheritdoc />
-		public override string GoogleSheetUrl => "https://docs.google.com/spreadsheets/d/1095NlqM_3cvZfCTnQtTsCkOAXh0McypKZje47WtBzPY/edit#gid=558488968";
+		public override string GoogleSheetUrl => "https://docs.google.com/spreadsheets/d/1niZetdATgeUv786cV0IHIl0TMK4-JKbEmGiySsAn-vc/edit?gid=558488968#gid=558488968";
 	}
 }

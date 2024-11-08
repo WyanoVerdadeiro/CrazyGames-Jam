@@ -11,6 +11,10 @@ using Newtonsoft.Json;
 using Game.Services;
 using UnityEngine;
 using Game.Commands;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System;
+using System.ComponentModel;
 
 namespace Game.StateMachines
 {
@@ -24,6 +28,7 @@ namespace Game.StateMachines
 		private readonly IUiServiceInit _uiService;
 		private readonly IConfigsAdder _configsAdder;
 		private readonly IDataService _dataService;
+		private readonly IAssetAdderService _assetAdderService;
 
 		public InitialLoadingState(IInstaller installer)
 		{
@@ -32,6 +37,7 @@ namespace Game.StateMachines
 			_uiService = installer.Resolve<IUiServiceInit>();
 			_configsAdder = installer.Resolve<IConfigsAdder>();
 			_dataService = installer.Resolve<IDataService>();
+			_assetAdderService = installer.Resolve<IAssetAdderService>();
 		}
 
 		/// <summary>
@@ -89,17 +95,26 @@ namespace Game.StateMachines
 
 		private async Task LoadConfigs()
 		{
-			var uiConfigs = await _services.AssetResolverService.LoadAssetAsync<UiConfigs>(AddressableId.Prefabs_Configs_UiConfigs.GetConfig().Address);
-			var gameConfigs = await _services.AssetResolverService.LoadAssetAsync<GameConfigs>(AddressableId.Prefabs_Configs_GameConfigs.GetConfig().Address);
-			var dataConfigs = await _services.AssetResolverService.LoadAssetAsync<DataConfigs>(AddressableId.Prefabs_Configs_DataConfigs.GetConfig().Address);
-			
-			_uiService.Init(uiConfigs);
-			_configsAdder.AddSingletonConfig(gameConfigs.Config);
-			_configsAdder.AddConfigs(data => (int) data.Id, dataConfigs.Configs);
-			
-			_services.AssetResolverService.UnloadAsset(uiConfigs);
-			_services.AssetResolverService.UnloadAsset(gameConfigs);
-			_services.AssetResolverService.UnloadAsset(dataConfigs);
+			var uiConfigs = _services.AssetResolverService.LoadAssetAsync<UiConfigs>(AddressableId.Prefabs_Configs_UiConfigs.GetConfig().Address);
+
+			await Task.WhenAll(uiConfigs,
+				// Single configs
+				_services.AssetResolverService.LoadAssetAsync<GameConfigs>(
+					AddressableId.Prefabs_Configs_GameConfigs.GetConfig().Address,
+					result => _configsAdder.AddSingletonConfig(result.Config)),
+
+				// Multi configs
+				_services.AssetResolverService.LoadAssetAsync<DataConfigs>(
+					AddressableId.Prefabs_Configs_DataConfigs.GetConfig().Address,
+					result => _configsAdder.AddConfigs(data => (int)data.Id, result.Configs)),
+
+				// Asset configs
+				_services.AssetResolverService.LoadAssetAsync<PieceAssetConfigs>(
+					AddressableId.Prefabs_Configs_PieceAssetConfigs.GetConfig().Address,
+					result => _assetAdderService.AddConfigs(result)));
+
+			_uiService.Init(uiConfigs.Result);
+			_services.AssetResolverService.UnloadAsset(uiConfigs.Result);
 		}
 
 		private void LoadGameData()

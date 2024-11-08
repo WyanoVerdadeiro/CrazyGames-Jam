@@ -21,9 +21,8 @@ namespace Game.Presenters
 	public class MainHudPresenter : UiPresenter
 	{
 		[SerializeField] private TimerView _timer;
-		[SerializeField] private TextMeshProUGUI _version;
-		[SerializeField] private TextMeshProUGUI _softCurrencyText;
-		[SerializeField] private TextMeshProUGUI _hardCurrencyText;
+		[SerializeField] private TextMeshProUGUI _goal1Text;
+		[SerializeField] private TextMeshProUGUI _goal2Text;
 		[SerializeField] private TextMeshProUGUI _ammotText;
 		[SerializeField] private Button _gameOverButton;
 
@@ -41,19 +40,13 @@ namespace Game.Presenters
 			_gameOverButton.onClick.AddListener(GameOverClicked);
 		}
 
-		private void Start()
-		{
-			_version.text = 
-				$"internal = v{VersionServices.VersionInternal}\n" +
-				$"external = v{VersionServices.VersionExternal}\n" +
-				$"build number = {VersionServices.BuildNumber}";
-		}
-
 		protected override void OnOpened()
 		{
-			_dataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.SoftCurrency, OnSoftCurrencyUpdated);
-			_dataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.HardCurrency, OnHardCurrencyUpdated);
 			_gameController.GameplayController.Ammo.InvokeObserve(OnAmmoUpdated);
+			_gameController.GameplayController.Goals.Observe(OnGoalsUpdated);
+
+			_goal1Text.text = _gameController.GameplayController.Goals[0].Value.ToString();
+			_goal2Text.text = _gameController.GameplayController.Goals[1].Value.ToString();
 		}
 
 		private void OnAmmoUpdated(int oldValue, int newValue)
@@ -61,14 +54,18 @@ namespace Game.Presenters
 			_ammotText.text = $"Ammo: {newValue.ToString()}";
 		}
 
-		private void OnSoftCurrencyUpdated(GameId currency, int amountBefore, int amountAfter, ObservableUpdateType updateType)
+		private void OnGoalsUpdated(int index, StructPair<GameId, int> oldValue, StructPair<GameId, int> newValue, ObservableUpdateType updateType)
 		{
-			_softCurrencyText.text = $"SC: {amountAfter.ToString()}";
-		}
+			if (updateType != ObservableUpdateType.Updated) return;
 
-		private void OnHardCurrencyUpdated(GameId currency, int amountBefore, int amountAfter, ObservableUpdateType updateType)
-		{
-			_hardCurrencyText.text = $"HC: {amountAfter.ToString()}";
+			if(index == 0)
+			{
+				_goal1Text.text = newValue.Value.ToString();
+			}
+			else
+			{
+				_goal2Text.text = newValue.Value.ToString();
+			}
 		}
 
 		private void GameOverClicked()

@@ -47,7 +47,7 @@ namespace Game
 			installer.Bind<ITickService>(new TickService());
 			installer.Bind<IAnalyticsService>(new AnalyticsService());
 			installer.Bind<ICoroutineService>(new CoroutineService());
-			installer.Bind<IAssetResolverService>(new AssetResolverService());
+			installer.Bind<AssetResolverService, IAssetResolverService, IAssetAdderService>(new AssetResolverService());
 			installer.Bind<ConfigsProvider, IConfigsAdder, IConfigsProvider>(new ConfigsProvider());
 			installer.Bind<DataService, IDataService, IDataProvider>(new DataService());
 
