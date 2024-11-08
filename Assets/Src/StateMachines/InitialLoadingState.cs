@@ -118,6 +118,8 @@ namespace Game.StateMachines
 
 			_uiService.Init(uiConfigs.Result);
 			_services.AssetResolverService.UnloadAsset(uiConfigs.Result);
+
+			await _services.AssetResolverService.LoadAllAssets<GameId, Sprite>();
 		}
 
 		private void LoadGameData()

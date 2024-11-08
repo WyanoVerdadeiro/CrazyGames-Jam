@@ -152,7 +152,8 @@ namespace Game.StateMachines
 		{
 			var tasks = new List<Task>
 			{
-				_uiService.LoadGameUiSet(UiSetId.GameplayUi, 0.8f)
+				_uiService.LoadGameUiSet(UiSetId.GameplayUi, 0.8f),
+				_services.AssetResolverService.LoadAllAssets<GameId, GameObject>()
 			};
 
 			await SceneManager.LoadSceneAsync("Game", LoadSceneMode.Additive);

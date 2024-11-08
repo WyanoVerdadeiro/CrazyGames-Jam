@@ -49,8 +49,8 @@ namespace Game.Presenters
 
 			_goal1Text.text = goals[0].Value.ToString();
 			_goal2Text.text = goals[1].Value.ToString();
-			_goal1Sprite.sprite = _services.AssetResolverService.RequestAsset<GameId, Sprite>(goals[0].Key, false).Result;
-			_goal2Sprite.sprite = _services.AssetResolverService.RequestAsset<GameId, Sprite>(goals[1].Key, false).Result;
+			_goal1Sprite.sprite = _services.AssetResolverService.RequestAsset<GameId, Sprite>(goals[0].Key).Result;
+			_goal2Sprite.sprite = _services.AssetResolverService.RequestAsset<GameId, Sprite>(goals[1].Key).Result;
 		}
 
 		private void OnAmmoUpdated(int oldValue, int newValue)

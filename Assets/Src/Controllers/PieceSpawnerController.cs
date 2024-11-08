@@ -76,7 +76,7 @@ namespace Game.Controllers
 
 		private void Instantiator(GameId id)
 		{
-			var instance = _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, false).Result.GetComponent<PieceViewController>();
+			var instance = _services.AssetResolverService.RequestAsset<GameId, GameObject>(id).Result.GetComponent<PieceViewController>();
 
 			instance.Setup(id, Despawn);
 			instance.gameObject.SetActive(false);
