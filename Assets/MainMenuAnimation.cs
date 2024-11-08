@@ -17,7 +17,13 @@ public class MainMenuAnimation : MonoBehaviour
     [SerializeField]
     private RectTransform _credits;
     [SerializeField]
+    private RectTransform _rightBottomAnchor;
+    [SerializeField]
     private CanvasGroup[] _buttons;
+    [SerializeField]
+    private RectTransform _howToPlay;
+    [SerializeField]
+    private CanvasGroup _returnButton;
 
     private void Start()
     {
@@ -46,9 +52,10 @@ public class MainMenuAnimation : MonoBehaviour
         var sequence = DOTween.Sequence();
 
         sequence.Append(_logo.DOScale(1, 0.3f));
-        sequence.AppendInterval(1.5f);
+        sequence.AppendInterval(0.5f);
         sequence.Append(_playButton.DOScale(1, 0.15f));
         sequence.Append(_soundBar.DOScale(1, 0.15f));
+        sequence.Append(_rightBottomAnchor.DOScale(1, 0.15f));
         sequence.Append(_howToPlayButton.DOScale(1, 0.15f));
         sequence.Append(_creditsButton.DOScale(1, 0.15f));
         sequence.AppendCallback(() => {
@@ -74,6 +81,7 @@ public class MainMenuAnimation : MonoBehaviour
         _creditsButton.DOScale(0, 0.15f);
         _howToPlayButton.DOAnchorPos(new Vector2(120.5f, -43), 0.3f);
         _credits.DOAnchorPos(new Vector2(303, -393), 0.3f);
+        _rightBottomAnchor.DOScale(0, 0.15f);
     }
 
     public void OpenCredits()
@@ -109,12 +117,22 @@ public class MainMenuAnimation : MonoBehaviour
 
         sequence.AppendCallback(CloseMainMenu);
         sequence.AppendInterval(0.5f);
+        sequence.Append(_howToPlay.DOScale(1, 0.3f));
+        sequence.OnComplete(() =>
+        {
+            _returnButton.interactable = true;
+            _returnButton.blocksRaycasts = true;
+        });
     }
 
     public void CloseHowToPlay()
     {
+        _returnButton.interactable = true;
+        _returnButton.blocksRaycasts = true;
+
         var sequence = DOTween.Sequence();
 
+        sequence.Append(_howToPlay.DOScale(0, 0.3f));
         sequence.AppendCallback(OpenMainMenu);
     }
 
