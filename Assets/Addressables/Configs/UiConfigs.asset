@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingSpinnerType: 
   _configs:
-  - AddressableAddress: Prefabs/UI/GameOver.prefab
+  - AddressableAddress: Addressables/UI/GameOver.prefab
     Layer: 0
     UiType: Game.Presenters.GameOverScreenPresenter, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Prefabs/UI/Loading Screen.prefab
+  - AddressableAddress: Addressables/UI/Loading Screen.prefab
     Layer: 3
     UiType: Game.Presenters.LoadingScreenPresenter, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Prefabs/UI/MainHud.prefab
+  - AddressableAddress: Addressables/UI/MainHud.prefab
     Layer: 1
     UiType: Game.Presenters.MainHudPresenter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - AddressableAddress: Prefabs/UI/Menu Screen.prefab
+  - AddressableAddress: Addressables/UI/Menu Screen.prefab
     Layer: 1
     UiType: Assets.Src.Presenters.MainMenuPresenter, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null

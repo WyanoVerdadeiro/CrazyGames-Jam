@@ -21,10 +21,11 @@ namespace Game.Presenters
 	public class MainHudPresenter : UiPresenter
 	{
 		[SerializeField] private TimerView _timer;
+		[SerializeField] private Image _goal1Sprite;
+		[SerializeField] private Image _goal2Sprite;
 		[SerializeField] private TextMeshProUGUI _goal1Text;
 		[SerializeField] private TextMeshProUGUI _goal2Text;
 		[SerializeField] private TextMeshProUGUI _ammotText;
-		[SerializeField] private Button _gameOverButton;
 
 		private IGameDataProviderLocator _dataProvider;
 		private IGameServices _services;
@@ -37,21 +38,24 @@ namespace Game.Presenters
 			_gameController = MainInstaller.Resolve<IGameControllerLocator>();
 
 			_timer.Init(_services);
-			_gameOverButton.onClick.AddListener(GameOverClicked);
 		}
 
 		protected override void OnOpened()
 		{
+			var goals = _gameController.GameplayController.Goals;
+
 			_gameController.GameplayController.Ammo.InvokeObserve(OnAmmoUpdated);
 			_gameController.GameplayController.Goals.Observe(OnGoalsUpdated);
 
-			_goal1Text.text = _gameController.GameplayController.Goals[0].Value.ToString();
-			_goal2Text.text = _gameController.GameplayController.Goals[1].Value.ToString();
+			_goal1Text.text = goals[0].Value.ToString();
+			_goal2Text.text = goals[1].Value.ToString();
+			_goal1Sprite.sprite = _services.AssetResolverService.RequestAsset<GameId, Sprite>(goals[0].Key, false).Result;
+			_goal2Sprite.sprite = _services.AssetResolverService.RequestAsset<GameId, Sprite>(goals[1].Key, false).Result;
 		}
 
 		private void OnAmmoUpdated(int oldValue, int newValue)
 		{
-			_ammotText.text = $"Ammo: {newValue.ToString()}";
+			_ammotText.text = newValue.ToString();
 		}
 
 		private void OnGoalsUpdated(int index, StructPair<GameId, int> oldValue, StructPair<GameId, int> newValue, ObservableUpdateType updateType)
@@ -66,11 +70,6 @@ namespace Game.Presenters
 			{
 				_goal2Text.text = newValue.Value.ToString();
 			}
-		}
-
-		private void GameOverClicked()
-		{
-			_services.MessageBrokerService.Publish(new OnGameOverMessage());
 		}
 	}
 }

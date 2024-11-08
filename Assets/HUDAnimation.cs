@@ -23,7 +23,7 @@ public class HUDAnimation : MonoBehaviour
         {
             remixBlock.localScale = Vector3.zero;
         }
-        //OpenHUDMenu();
+        OpenHUDMenu();
     }
 
     public void OpenHUDMenu()

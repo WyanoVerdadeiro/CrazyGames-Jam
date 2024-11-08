@@ -95,22 +95,25 @@ namespace Game.StateMachines
 
 		private async Task LoadConfigs()
 		{
-			var uiConfigs = _services.AssetResolverService.LoadAssetAsync<UiConfigs>(AddressableId.Prefabs_Configs_UiConfigs.GetConfig().Address);
+			var uiConfigs = _services.AssetResolverService.LoadAssetAsync<UiConfigs>(AddressableId.Addressables_Configs_UiConfigs.GetConfig().Address);
 
 			await Task.WhenAll(uiConfigs,
 				// Single configs
 				_services.AssetResolverService.LoadAssetAsync<GameConfigs>(
-					AddressableId.Prefabs_Configs_GameConfigs.GetConfig().Address,
+					AddressableId.Addressables_Configs_GameConfigs.GetConfig().Address,
 					result => _configsAdder.AddSingletonConfig(result.Config)),
 
 				// Multi configs
 				_services.AssetResolverService.LoadAssetAsync<DataConfigs>(
-					AddressableId.Prefabs_Configs_DataConfigs.GetConfig().Address,
+					AddressableId.Addressables_Configs_DataConfigs.GetConfig().Address,
 					result => _configsAdder.AddConfigs(data => (int)data.Id, result.Configs)),
 
 				// Asset configs
 				_services.AssetResolverService.LoadAssetAsync<PieceAssetConfigs>(
-					AddressableId.Prefabs_Configs_PieceAssetConfigs.GetConfig().Address,
+					AddressableId.Addressables_Configs_PieceAssetConfigs.GetConfig().Address,
+					result => _assetAdderService.AddConfigs(result)),
+				_services.AssetResolverService.LoadAssetAsync<PieceSpriteAssetConfigs>(
+					AddressableId.Addressables_Configs_PieceSpriteAssetConfigs.GetConfig().Address,
 					result => _assetAdderService.AddConfigs(result)));
 
 			_uiService.Init(uiConfigs.Result);

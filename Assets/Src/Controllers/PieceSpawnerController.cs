@@ -3,8 +3,6 @@ using Game.Ids;
 using Game.Services;
 using Game.ViewControllers;
 using GameLovers.Services;
-using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -72,7 +70,7 @@ namespace Game.Controllers
 		{
 			if (Time.time < _nextTick) return;
 
-			_nextTick = Time.time + Freya.Random.Value;
+			_nextTick = Time.time + Freya.Random.Range(0.3f, 0.7f);
 
 			_objectPool.Spawn();
 		}

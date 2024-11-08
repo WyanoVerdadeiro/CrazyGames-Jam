@@ -32,6 +32,17 @@ namespace Game.ViewControllers
 			if (transform.position.y < -12f)
 			{
 				Despawn();
+				return;
+			}
+		}
+
+		private void FixedUpdate()
+		{
+			if (_rigidbody.linearVelocity.y < 0 && _rigidbody.position.z > -5)
+			{
+				_rigidbody.isKinematic = true;
+				_rigidbody.position += new Vector3(0, 0, 20f);
+				_rigidbody.WakeUp();
 			}
 		}
 
@@ -63,11 +74,10 @@ namespace Game.ViewControllers
 
 		public void OnSpawn()
 		{
-			var angleRng = Freya.Random.Angle / 8f;
 			var direction = new Vector3(
-				Freya.Random.Range(-1f, 1f) * Mathf.Sin(angleRng),
-				Freya.Random.Range(0.6f, 0.8f),
-				Freya.Random.Range(-0.01f, 0.01f) * Mathf.Sin(angleRng));
+				Freya.Random.Range(-0.4f, 0.4f),
+				Freya.Random.Range(0.5f, 0.7f),
+				Freya.Random.Range(-0.01f, 0.01f));
 
 			transform.rotation = Freya.Random.Rotation;
 			transform.position = new Vector3(Freya.Random.Range(-5f, 5f), -11f, 5f);
