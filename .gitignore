@@ -69,10 +69,10 @@ sysinfo.txt
 *.apk
 *.unitypackage
 **/.utmp/
-**/BuildReports/
-**/BuildReports.meta
-**/Build/
-**/Build.meta
+#**/BuildReports/
+#**/BuildReports.meta
+#**/Build/
+#**/Build.meta
 **/Editor Default Resources/
 **/Editor Default Resources.meta
 build-output.properties
