@@ -12,11 +12,12 @@ namespace Game.Controllers
 
 	public class PieceSpawnerController : IPieceSpawnerController, IGameController
 	{
+		private readonly IList<PieceViewController> _objectPool = new List<PieceViewController>();
+		private readonly IList<PieceViewController> _spawnedPool = new List<PieceViewController>();
+
 		private IGameControllerLocator _contollers;
 		private IGameServices _services;
-		private IObjectPool<PieceViewController> _objectPool;
 		private float _nextTick;
-		private List<GameId> _pieceIds = new List<GameId>();
 
 		public PieceSpawnerController(IGameServices services, IGameControllerLocator contollers)
 		{
@@ -27,42 +28,35 @@ namespace Game.Controllers
 		public void Enable()
 		{
 			var ids = GameIdGroup.Piece.GetIds();
-
-			foreach (var goal in _contollers.GameplayController.Goals)
-			{
-				_pieceIds.Add(goal.Key);
-				_pieceIds.Add(goal.Key);
-			}
 			
 			for (var i = 0; i < 10; i++)
 			{
-				_pieceIds.Add(ids[UnityEngine.Random.Range(0, ids.Count)]);
+				Instantiator(ids[UnityEngine.Random.Range(0, ids.Count)]);
 			}
 
-			_objectPool = new GameObjectPool<PieceViewController>(15, null, Instantiator);
+			foreach (var goal in _contollers.GameplayController.Goals)
+			{
+				Instantiator(goal.Key);
+				Instantiator(goal.Key);
+			}
+
 			_services.TickService.SubscribeOnUpdate(OnUpdate);
-		}
-
-		private PieceViewController Instantiator(PieceViewController _)
-		{
-			var id = _pieceIds[UnityEngine.Random.Range(0, _pieceIds.Count)];
-			var instance = _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, false).Result.GetComponent<PieceViewController>();
-
-			instance.Setup(id);
-			instance.gameObject.SetActive(false);
-
-			return instance;
 		}
 
 		public void Disable()
 		{
-			var objects = _objectPool.Clear();
-
-			foreach (var obj in objects)
+			foreach (var instance in _spawnedPool)
 			{
-				_services.AssetResolverService.UnloadAsset(obj.gameObject);
+				GameObject.Destroy(instance.gameObject);
+			}
+			foreach (var instance in _objectPool)
+			{
+				GameObject.Destroy(instance.gameObject);
 			}
 
+			_objectPool.Clear();
+			_spawnedPool.Clear();
+			_services.AssetResolverService.UnloadAssets<GameId, GameObject>(false);
 			_services.TickService.UnsubscribeOnUpdate(OnUpdate);
 		}
 
@@ -72,7 +66,27 @@ namespace Game.Controllers
 
 			_nextTick = Time.time + Freya.Random.Range(0.3f, 0.7f);
 
-			_objectPool.Spawn();
+			var idx = Freya.Random.Range(0, _objectPool.Count);
+			var instance = _objectPool[idx];
+
+			instance.Spawn();
+			_objectPool.RemoveAt(idx);
+			_spawnedPool.Add(instance);
+		}
+
+		private void Instantiator(GameId id)
+		{
+			var instance = _services.AssetResolverService.RequestAsset<GameId, GameObject>(id, false).Result.GetComponent<PieceViewController>();
+
+			instance.Setup(id, Despawn);
+			instance.gameObject.SetActive(false);
+			_objectPool.Add(instance);
+		}
+
+		private void Despawn(PieceViewController instance)
+		{
+			_spawnedPool.Remove(instance);
+			_objectPool.Add(instance);
 		}
 	}
 }

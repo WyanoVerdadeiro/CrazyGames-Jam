@@ -68,17 +68,16 @@ namespace Game.Controllers
 
 			for(var i  = 0; i < _goals.Count; i++)
 			{
-				if(_goals[i].Key == message.Piece)
+				if (_goals[i].Value <= 0) continue;
+
+				levelComplete = false;
+
+				if (_goals[i].Key == message.Piece)
 				{
 					var pair = _goals[i];
 
 					pair.Value--;
 					_goals[i] = pair;
-				}
-
-				if(_goals[i].Value > 0)
-				{
-					levelComplete = false;
 				}
 			}
 

@@ -2,20 +2,20 @@
 using Game.Messages;
 using Game.Services;
 using GameLovers.Services;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Game.ViewControllers
 {
 	[RequireComponent(typeof(Rigidbody))]
-	public class PieceViewController : MonoBehaviour, IPointerUpHandler,  IPointerDownHandler,
-		IPoolEntityObject<PieceViewController>, IPoolEntitySpawn
+	public class PieceViewController : MonoBehaviour, IPointerUpHandler,  IPointerDownHandler
 	{
 		[SerializeField] private Rigidbody _rigidbody;
 
 		private GameId _gameId;
 		private IGameServices _gameServices;
-		private IObjectPool<PieceViewController> _objectPool;
+		private Action<PieceViewController> _despawn;
 
 		private void OnValidate()
 		{
@@ -32,33 +32,21 @@ namespace Game.ViewControllers
 			if (transform.position.y < -12f)
 			{
 				Despawn();
-				return;
 			}
 		}
 
 		private void FixedUpdate()
 		{
-			if (_rigidbody.linearVelocity.y < 0 && _rigidbody.position.z > -5)
+			if (_rigidbody.linearVelocity.y < 0 && _rigidbody.position.z < 10)
 			{
-				_rigidbody.isKinematic = true;
 				_rigidbody.position += new Vector3(0, 0, 20f);
-				_rigidbody.WakeUp();
 			}
 		}
 
-		public void Init(IObjectPool<PieceViewController> pool)
-		{
-			_objectPool = pool;
-		}
-
-		public void Setup(GameId id)
+		public void Setup(GameId id, Action<PieceViewController> despawn)
 		{
 			_gameId = id;
-		}
-
-		public bool Despawn()
-		{
-			return _objectPool.Despawn(this);
+			_despawn = despawn;
 		}
 
 		public void OnPointerDown(PointerEventData eventData)
@@ -72,7 +60,7 @@ namespace Game.ViewControllers
 			_gameServices.MessageBrokerService.Publish(new OnPieceHitMessage { Piece = _gameId });
 		}
 
-		public void OnSpawn()
+		public void Spawn()
 		{
 			var direction = new Vector3(
 				Freya.Random.Range(-0.4f, 0.4f),
@@ -82,8 +70,18 @@ namespace Game.ViewControllers
 			transform.rotation = Freya.Random.Rotation;
 			transform.position = new Vector3(Freya.Random.Range(-5f, 5f), -11f, 5f);
 
+			_rigidbody.linearVelocity = Vector3.zero;
+			_rigidbody.angularVelocity = Vector3.zero;
+
+			gameObject.SetActive(true);
 			_rigidbody.AddForce(direction * 30f, ForceMode.Impulse);
 			_rigidbody.AddTorque(Freya.Random.Direction3D * 3f, ForceMode.Impulse);
+		}
+
+		public void Despawn()
+		{
+			_despawn(this);
+			gameObject.SetActive(false);
 		}
 	}
 }

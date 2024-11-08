@@ -20,10 +20,10 @@
       "source": "git",
       "dependencies": {
         "com.unity.addressables": "1.21.20",
-        "com.gamelovers.dataextensions": "0.5.1",
+        "com.gamelovers.dataextensions": "0.6.0",
         "com.gamelovers.configsprovider": "0.1.1"
       },
-      "hash": "1ee53e9890197fc27475e4422e7e3ca829f6a3e6"
+      "hash": "07e35bff7fffcf1b089c7e8b525cb8c9450b49a2"
     },
     "com.gamelovers.configsprovider": {
       "version": "https://github.com/CoderGamester/Unity-ConfigsProvider.git",
